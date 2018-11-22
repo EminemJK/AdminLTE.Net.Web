@@ -1,0 +1,13 @@
+﻿body {
+    
+}
+
+.logo-img {
+    width:35px;
+    height:auto;
+    margin-right:10px;
+}
+
+.logo-mini .logo-img {
+    margin-right:0;
+}

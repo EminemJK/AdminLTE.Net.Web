@@ -1,0 +1,10 @@
+/.vs
+/AdminLTE.Common/obj
+/AdminLTE.Common/bin
+/AdminLTE.Domain/obj
+/AdminLTE.Domain/bin
+/AdminLTE.Models/obj
+/AdminLTE.Models/bin
+/AdminLTE.Net.Web/obj
+/AdminLTE.Net.Web/.vs
+/AdminLTE.Net.Web/bin

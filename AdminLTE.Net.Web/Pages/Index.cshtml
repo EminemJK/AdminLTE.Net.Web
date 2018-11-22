@@ -1,0 +1,48 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<section class="content-header">
+    <h1>
+        Hi, Welcome to Banana's System.
+        <small>     This is a demo project</small>
+    </h1> 
+</section> 
+<section class="content">
+    <!-- USERS LIST -->
+    <div class="box box-danger">
+        <div class="box-header with-border">
+            <h3 class="box-title">最近新增</h3>
+
+            <div class="box-tools pull-right">
+                <span class="label label-danger">8个新用户</span>
+                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body no-padding">
+            <ul class="users-list clearfix">
+                <li>
+                    <img src="~/adminlte/dist/img/user3-128x128.jpg" alt="User Image">
+                    <a class="users-list-name" href="#">Alexander Pierce</a>
+                    <span class="users-list-date">Today</span>
+                </li>
+            </ul>
+            <!-- /.users-list -->
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer text-center">
+            <a href="javascript:void(0)" class="uppercase">查看全部</a>
+        </div>
+        <!-- /.box-footer -->
+    </div>
+            <!--/.box -->
+</section>
+ 

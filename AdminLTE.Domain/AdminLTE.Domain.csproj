@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Banana.Uow" Version="1.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.1.6" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AdminLTE.Models\AdminLTE.Models.csproj" />
+  </ItemGroup>
+
+</Project>
