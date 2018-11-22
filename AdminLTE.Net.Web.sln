@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminLTE.Models", "AdminLTE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminLTE.Domain", "AdminLTE.Domain\AdminLTE.Domain.csproj", "{4EE0CA9C-B476-44AD-B2CF-1A3F9B13EEB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminLTE.Common", "AdminLTE.Common\AdminLTE.Common.csproj", "{820AF6D6-55D9-48CD-B343-A3E80ADCDD27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminLTE.Common", "AdminLTE.Common\AdminLTE.Common.csproj", "{820AF6D6-55D9-48CD-B343-A3E80ADCDD27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

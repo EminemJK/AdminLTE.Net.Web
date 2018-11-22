@@ -1,0 +1,74 @@
+﻿
+body {
+    color: #333;
+    font-family: Microsoft YaHei, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+    margin: auto;
+}
+
+
+.loginHeader {
+    width: 330px;
+    padding: 20px 0;
+    margin: auto;
+    margin-top: 100px;
+}
+
+.logo-img {
+    float: left;
+    width: 80px;
+    margin-top: 13px;
+}
+
+
+.clearfix{
+    clear:both;
+}
+
+.logo-name {
+    float: right;
+}
+
+.loginBox {
+    margin: auto;
+    background-color: #00c5a3;
+}
+.loginInBox {
+    margin: 0px auto;
+    width: 250px;
+}
+
+.loginBox button {
+    width: 100px; 
+}
+
+
+.form-group {
+    width: 250px;
+}
+
+.login-bg {
+    background: #00c5a3;
+    padding: 40px 0;
+}
+
+.login-btn{
+    width: 250px;
+}
+
+
+
+
+.footer {
+    float: left;
+    width: 100%;
+    font-size: 14px;
+    position: absolute;
+    bottom: 10px;
+}
+
+
+
+    
