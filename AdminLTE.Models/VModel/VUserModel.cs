@@ -10,5 +10,7 @@ namespace AdminLTE.Models.VModel
         public string UserName { get; set; }
 
         public DateTime Time { get; set; }
+
+        public string UserHeader { get;set; }
     }
 }

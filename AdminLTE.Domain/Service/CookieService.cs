@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
-using AdminLTE.Common;
+using Banana.Utility.Encryption;
 
 namespace AdminLTE.Domain.Service
 {
@@ -26,8 +26,16 @@ namespace AdminLTE.Domain.Service
         /// <param name="des">加密字符串</param>
         public static T GetDesDecrypt<T>(string des)
         {
-            string code = DigestHelper.DesDecrypt(des);
-            return JsonConvert.DeserializeObject<T>(code);
+            try
+            {
+                string code = DigestHelper.DesDecrypt(des);
+                return JsonConvert.DeserializeObject<T>(code);
+            }
+            catch
+            {
+                return default(T);
+            }
+           
         }
     }
 }

@@ -32,7 +32,7 @@ namespace AdminLTE.Net.Web.Pages
         public string Message { get; set; }
 
         [HttpPost]
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostLoginAsync()
         {
             if (!ModelState.IsValid)
             {
@@ -46,8 +46,9 @@ namespace AdminLTE.Net.Web.Pages
                     VUserModel model = new VUserModel()
                     {
                         Id = user.Id,
-                        UserName = user.UserName,
-                        Time = DateTime.Now
+                        UserName = user.Name,
+                        Time = DateTime.Now,
+                        UserHeader = UserService.GetUserHeader(user.UserName)
                     }; 
                     var identity = new ClaimsIdentity(CookieService.AuthenticationScheme); 
                     identity.AddClaim(new Claim(ClaimTypes.Sid, CookieService.GetDesEncrypt(model)));

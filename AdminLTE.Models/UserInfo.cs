@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using AdminLTE.Models.Enum;
 using Banana.Uow.Models;
 using Dapper.Contrib.Extensions;
 
@@ -19,9 +20,9 @@ namespace AdminLTE.Models
 
         public string Phone { get; set; }
 
-        public int Sex { get; set; }
+        public EUserSex Sex { get; set; }
 
-        public int Enable { get; set; }
+        public EUserState Enable { get; set; }
 
         public DateTime CreateTime { get; set; }
     }

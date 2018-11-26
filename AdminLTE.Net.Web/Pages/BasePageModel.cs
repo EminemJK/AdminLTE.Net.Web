@@ -19,21 +19,21 @@ namespace AdminLTE.Net.Web.Pages
             {
                 context.Result = RedirectToPage("/Login");
             }
-           
-
             base.OnPageHandlerExecuted(context);
         }
 
         protected bool CheckToken(HttpContext context)
-        {
-            bool b = false;
+        { 
             if (context.User != null && context.User.Claims.Count() > 0)
             {
                 CurrentUser = CookieService.GetDesDecrypt<VUserModel>(context.User.Claims.FirstOrDefault().Value);
-                b = true;
+                if (CurrentUser == null)
+                    return false;
+                return true;
             }
-            return b;
+            return false;
         }
-        public VUserModel CurrentUser { get; private set; }
+        
+        public VUserModel CurrentUser { get;  set; }
     }
 }

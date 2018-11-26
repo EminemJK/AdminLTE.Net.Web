@@ -45,7 +45,7 @@
                         <input type="password" class="form-control" asp-for="Login.Password">
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block btn-flat login-btn">Sign In</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-flat login-btn" asp-page-handler="Login">Sign In</button>
                 </form>
             </div>
         </div>

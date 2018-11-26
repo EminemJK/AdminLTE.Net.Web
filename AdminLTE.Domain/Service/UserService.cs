@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Banana.Uow;
-using AdminLTE.Common;
 using AdminLTE.Models;
 using System.Collections;
 using System.Linq;
+using Banana.Utility.Encryption;
+using AdminLTE.Models.VModel;
+using AdminLTE.Models.Enum;
 
 namespace AdminLTE.Domain.Service
 {
@@ -41,22 +42,52 @@ namespace AdminLTE.Domain.Service
         }
 
         /// <summary>
-        /// 获取全部用户
+        /// 获取最近注册用户
         /// </summary>
-        public bool CreateUser()
+        public List<VUserListModel> GetIndexUsers()
         {
-            UserInfo userInfo = new UserInfo()
+            var res = new List<VUserListModel>();
+            var list = Repository.QueryList("CreateTime>=@time  ORDER BY CreateTime desc", new { time = "2018-11-01" });
+            list.ForEach(u =>
             {
-                Name = "EminemJK",
-                Password = MD5.Encrypt("12345678"),
-                Phone = "17777075292",
-                Sex = 1,
-                UserName = "admin",
-                CreateTime = DateTime.Now,
-                 Enable = 1
-            };
-             Repository.Insert(userInfo);
-            return true;
+                VUserListModel model = new VUserListModel()
+                {
+                    Id = u.Id,
+                    UserName = u.Name,
+                    UserHeader = GetUserHeader(u.UserName),
+                    Time = DateTime.Now,
+                    CreateTime = u.CreateTime,
+                    Enable = u.Enable,
+                    Sex = u.Sex,
+                    Name = u.Name
+                };
+                res.Add(model);
+            });
+            return res;
+        }
+
+        public static string GetUserHeader(string userName)
+        {
+            return @"/images/userHeader/" + userName + ".jpg";
+        }
+
+        /// <summary>
+        /// Demo
+        /// </summary>
+        public void Create()
+        {
+            List<UserInfo> ls = new List<UserInfo>();
+            ls.Add(new UserInfo() { Name = "Monkey D. Luffy", Phone = "15878451111", Password = "12345678", Sex =  EUserSex.Man, UserName = "Luffy", CreateTime = DateTime.Now, Enable = EUserState.Enabled });
+            ls.Add(new UserInfo() { Name = "索隆", Phone = "13355526663", Password = "12345678", Sex = EUserSex.Man, UserName = "Zoro", CreateTime = DateTime.Now, Enable = EUserState.Enabled });
+            ls.Add(new UserInfo() { Name = "娜美", Phone = "15878451111", Password = "12345678", Sex = EUserSex.Woman, UserName = "Nami", CreateTime = DateTime.Now, Enable = EUserState.Enabled });
+            ls.Add(new UserInfo() { Name = "山治", Phone = "17755602229", Password = "12345678", Sex = EUserSex.Man, UserName = "Sanji", CreateTime = DateTime.Now, Enable = EUserState.Enabled });
+            ls.Add(new UserInfo() { Name = "乌索普", Phone = "14799995555", Password = "12345678", Sex = EUserSex.Man, UserName = "Usopp", CreateTime = DateTime.Now, Enable = EUserState.Enabled });
+            ls.Add(new UserInfo() { Name = "乔巴", Phone = "18966660000", Password = "12345678", Sex = EUserSex.Man, UserName = "Chopper", CreateTime = DateTime.Now, Enable = EUserState.Enabled });
+            ls.Add(new UserInfo() { Name = "罗宾", Phone = "13122227878", Password = "12345678", Sex = EUserSex.Woman, UserName = "Robin", CreateTime = DateTime.Now, Enable = EUserState.Enabled });
+            ls.Add(new UserInfo() { Name = "弗兰奇", Phone = "15962354412", Password = "12345678", Sex = EUserSex.Man, UserName = "Franky", CreateTime = DateTime.Now, Enable = EUserState.Enabled });
+            ls.Add(new UserInfo() { Name = "布鲁克", Phone = "14322221111", Password = "12345678", Sex = EUserSex.Man, UserName = "Brook", CreateTime = DateTime.Now, Enable = EUserState.Enabled });
+            ls.Add(new UserInfo() { Name = "甚平", Phone = "15655479960", Password = "12345678", Sex = EUserSex.Man, UserName = "Jinbe", CreateTime = DateTime.Now, Enable = EUserState.Enabled });
+            Repository.InsertBatch("  INSERT INTO dbo.T_User( UserName ,Password ,Name ,Sex,Phone ,Enable ,CreateTime) VALUES  ( @UserName ,@Password ,@Name ,@Sex ,@Phone ,@Enable ,@CreateTime)", ls);
         }
     }
 }

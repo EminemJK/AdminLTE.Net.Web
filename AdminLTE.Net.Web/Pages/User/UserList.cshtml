@@ -1,15 +1,14 @@
 ﻿@page
-@model IndexModel
+@model UserListModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "用户管理";
 }
-
 <section class="content-header">
     <h1>
-        Hi, Welcome to Banana's System.
+        用户列表
         <small>     This is a demo project</small>
     </h1>
-</section>
+</section> 
 <section class="content">
     <!-- USERS LIST -->
     <div class="box box-danger">
@@ -17,7 +16,7 @@
             <h3 class="box-title">最近新增</h3>
 
             <div class="box-tools pull-right">
-                <span class="label label-danger">@Model.UserList.Count 个新用户</span>
+                <span class="label label-danger">8个新用户</span>
                 <button type="button" class="btn btn-box-tool" data-widget="collapse">
                     <i class="fa fa-minus"></i>
                 </button>
@@ -29,14 +28,11 @@
         <!-- /.box-header -->
         <div class="box-body no-padding">
             <ul class="users-list clearfix">
-                @foreach (var user in Model.UserList)
-                {
-                    <li>
-                        <img src="@user.UserHeader" alt="User Image">
-                        <a class="users-list-name" href="#">@user.UserName</a>
-                        <span class="users-list-date">@user.CreateTime.ToShortDateString()</span>
-                    </li>
-                }
+                <li>
+                    <img src="~/adminlte/dist/img/user3-128x128.jpg" alt="User Image">
+                    <a class="users-list-name" href="#">Alexander Pierce</a>
+                    <span class="users-list-date">Today</span>
+                </li>
             </ul>
             <!-- /.users-list -->
         </div>
@@ -48,13 +44,3 @@
     </div>
     <!--/.box -->
 </section>
-
-@section scripts{
-<style>
-    .users-list img {
-        width:100px;
-        height:100px;
-    }
-</style>
-}
-

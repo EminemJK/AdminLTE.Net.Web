@@ -1,6 +1,8 @@
-﻿@{
+﻿@model AdminLTE.Net.Web.Pages.BasePageModel
+@{
     ViewData["Title"] = "Banana";
 }
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,7 +51,7 @@
         <!--头部横条 start-->
         <header class="main-header">
             <!-- Logo -->
-            <a href="https://github.com/EminemJK" class="logo"> 
+            <a href="https://github.com/EminemJK" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><img class="logo-img" src="~/images/banana_logo.ico" /></span>
                 <!-- logo for regular state and mobile devices -->
@@ -57,19 +59,18 @@
             </a>
             <!-- Header Navbar -->
             <nav class="navbar navbar-static-top">
-                <!-- 侧边栏控制 --> 
+                <!-- 侧边栏控制 -->
                 <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                     <span class="sr-only">Toggle navigation</span>
                 </a>
                 <!-- 右上角按钮 -->
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
-
                         <li>
                             <a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true"><i class="fa fa-gears"></i></a>
                             <ul class="dropdown-menu">
-                                <li> <a href="#">退出登录</a></li>
-                                <li> <a href="#">系统设置</a></li>
+                                <li><a href="#" style="color:black">退出登录</a></li>
+                                <li><a href="#" style="color:black">系统设置</a></li>
                             </ul>
                         </li>
 
@@ -79,15 +80,15 @@
         </header>
         <!--头部横条 end-->
         <!-- 左侧边栏 start-->
-        <aside class="main-sidebar"> 
+        <aside class="main-sidebar">
             <section class="sidebar">
                 <!-- UserLogin start-->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="https://avatars2.githubusercontent.com/u/33885904?s=460&v=4" class="img-circle" alt="User Image" />
+                        <img src="@Model.CurrentUser.UserHeader" class="img-circle" alt="User Image" />
                     </div>
                     <div class="pull-left info">
-                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">EminemJK</font></font></p>
+                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">@Model.CurrentUser.UserName</font></font></p>
                         <a href="#">
                             <i class="fa fa-circle text-success"></i><font style="vertical-align: inherit;">
                                 <font style="vertical-align: inherit;"> Online</font>
@@ -126,12 +127,13 @@
                 </li>
             </ul>
             <!-- 菜单功能 end-->
-        </aside>  
-        <!-- 左侧边栏 end--> 
+        </aside>
+        <!-- 左侧边栏 end-->
 
         <div class="content-wrapper">
             @RenderBody()
         </div>
+        <!-- 页脚 -->
         <footer class="main-footer">
             <div class="pull-right hidden-xs">
                 <b>Version</b> 1.0
