@@ -34,7 +34,8 @@
     <link rel="stylesheet" href="~/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="~/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-
+    <!-- Pace style -->
+    <link href="~/adminlte/plugins/pace/pace.min.css" rel="stylesheet" />
     <link href="~/css/common.css" rel="stylesheet" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -62,10 +63,15 @@
                 <!-- 侧边栏控制 -->
                 <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                     <span class="sr-only">Toggle navigation</span>
-                </a>
+                </a> 
                 <!-- 右上角按钮 -->
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
+                        <li>
+                            <a href="#" class="sidebar-open ajax" role="button"  title="刷新当前界面">
+                                <span class="fa fa-refresh"></span>
+                            </a>
+                        </li>
                         <li>
                             <a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true"><i class="fa fa-gears"></i></a>
                             <ul class="dropdown-menu">
@@ -73,7 +79,6 @@
                                 <li><a href="#" style="color:black">系统设置</a></li>
                             </ul>
                         </li>
-
                     </ul>
                 </div>
             </nav>
@@ -179,5 +184,17 @@
     <script src="~/adminlte/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="~/adminlte/dist/js/demo.js"></script>
+    <script src="~/adminlte/plugins/pace/pace.min.js"></script>
+    <script type="text/javascript">
+        // To make Pace works on Ajax calls
+        $(document).ajaxStart(function () { Pace.restart(); });
+        $('.ajax').click(function () {
+            $.ajax({
+                url: '#', success: function (result) {
+                    $('.ajax-content').html('<hr>Ajax Request Completed !');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
