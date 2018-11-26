@@ -4,12 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using AdminLTE.Domain.Service;
 using AdminLTE.Models.VModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AdminLTE.Net.Web.Pages.User
+namespace AdminLTE.Net.Web.Pages.Account
 {
-    public class UserListModel : PageModel
+    [Authorize(AuthenticationSchemes = CookieService.AuthenticationScheme)]
+    public class UserListModel : BasePageModel
     {
         public UserListModel(UserService service)
         {
