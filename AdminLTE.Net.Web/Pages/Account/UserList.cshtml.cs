@@ -19,6 +19,7 @@ namespace AdminLTE.Net.Web.Pages.Account
         }
         public void OnGet()
         {
+           // UserList = userService.GetUserInfos();
         }
 
         protected UserService userService { get; set; }

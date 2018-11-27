@@ -66,6 +66,12 @@ namespace AdminLTE.Domain.Service
             return res;
         }
 
+        public List<VUserListModel> GetUserList(int pageNum, int pageSize, string whereString = null, object param = null, string order = null, bool asc = false)
+        {
+            var user = Repository.QueryList(pageNum, pageSize, whereString, param, order, asc);
+            return null;
+        }
+
         public static string GetUserHeader(string userName)
         {
             return @"/images/userHeader/" + userName + ".jpg";
