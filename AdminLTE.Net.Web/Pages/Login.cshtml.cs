@@ -47,8 +47,8 @@ namespace AdminLTE.Net.Web.Pages
                     {
                         Id = user.Id,
                         UserName = user.Name,
-                        Time = DateTime.Now,
-                        UserHeader = UserService.GetUserHeader(user.UserName)
+                        LoginTime = DateTime.Now,
+                        HeaderImg = user.HeaderImg
                     }; 
                     var identity = new ClaimsIdentity(CookieService.AuthenticationScheme); 
                     identity.AddClaim(new Claim(ClaimTypes.Sid, CookieService.GetDesEncrypt(model)));

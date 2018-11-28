@@ -6817,7 +6817,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Banana.Uow" Version="1.0.3" />
+    <PackageReference Include="Banana.Uow" Version="1.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />

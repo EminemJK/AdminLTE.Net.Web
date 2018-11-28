@@ -25,5 +25,7 @@ namespace AdminLTE.Models
         public EUserState Enable { get; set; }
 
         public DateTime CreateTime { get; set; }
+
+        public string HeaderImg { get; set; }
     }
 }

@@ -36,7 +36,12 @@ namespace AdminLTE.Net.Web
             });
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(option=>
+            {
+                option.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+            });
+            //增加了"XSRF-TOKEN"标识,值为表单自动生成的防伪标记
+            services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 
             services.AddAuthentication(CookieService.AuthenticationScheme)
                     .AddCookie(CookieService.AuthenticationScheme, o =>

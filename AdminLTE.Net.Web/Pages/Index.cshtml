@@ -32,7 +32,7 @@
                 @foreach (var user in Model.UserList)
                 {
                     <li>
-                        <img src="@user.UserHeader" alt="User Image">
+                        <img src="@user.HeaderImg" alt="User Image">
                         <a class="users-list-name" href="#">@user.UserName</a>
                         <span class="users-list-date">@user.CreateTime.ToShortDateString()</span>
                     </li>

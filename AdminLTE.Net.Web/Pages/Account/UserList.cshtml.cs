@@ -19,8 +19,16 @@ namespace AdminLTE.Net.Web.Pages.Account
         }
         public void OnGet()
         {
-           // UserList = userService.GetUserInfos();
+            
         }
+
+        public IActionResult OnGetUserPage(int pageNum = 1, int pageSize = 8,int draw = 1)
+        {
+            int pageCount;
+            var data = userService.GetUserList(pageNum, pageSize, out pageCount);
+            return new JsonResult(new VModelTableOutput<VUserListModel>(data, draw, pageCount));
+        }
+
 
         protected UserService userService { get; set; }
 

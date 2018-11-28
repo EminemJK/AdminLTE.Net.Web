@@ -7,6 +7,7 @@
 
 @section head{
     <link href="~/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/account/userlist.css" rel="stylesheet" />
 }
 
 <section class="content-header">
@@ -20,11 +21,31 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">用户列表</h3>
+                    <div class="form-group">
+                        <label>用户名：</label>
+                        <input type="text" class="form-control" style="width:100px" id="input-username">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="search-style-marginLg">联系方式：</label>
+                        <input type="text" class="form-control" style="width:100px" id="input-phone">
+                    </div>
+
+                    <div class="form-group">
+                        <label>性别：</label>
+                        <select class="form-control" style="width:100px" >
+                            <option>全部</option>
+                            <option>男</option>
+                            <option>女</option>
+                        </select>
+                    </div>
+                    <a class="btn btn-default fr">
+                        <i class="fa fa-search"></i> 搜索
+                    </a>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="example1" class="table table-bordered table-striped table-hover">
+                    <table id="userListTable" class="table table-bordered change-tr-color">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -37,6 +58,7 @@
                                 <th>操作</th>
                             </tr>
                         </thead>
+                        <tbody></tbody>
                     </table>
                 </div>
                 <!-- /.box-body -->
@@ -49,97 +71,110 @@
 
 @section Scripts{
     <script src="~/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="~/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> 
+    <script src="~/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script>
-        var data = [
-            {
-                "name": "Tiger Nixon",
-                "position": "System Architect",
-                "salary": "$3,120",
-                "start_date": "2011/04/25",
-                "office": "Edinburgh",
-                "extn": "5421"
-            },
-            {
-                "name": "Garrett Winters",
-                "position": "Director",
-                "salary": "$5,300",
-                "start_date": "2011/07/25",
-                "office": "Edinburgh",
-                "extn": "8422"
-            }
-            ,
-            {
-                "name": "Garrett Winters",
-                "position": "Director",
-                "salary": "$5,300",
-                "start_date": "2011/07/25",
-                "office": "Edinburgh",
-                "extn": "8422"
-            }
-            ,
-            {
-                "name": "Garrett Winters",
-                "position": "Director",
-                "salary": "$5,300",
-                "start_date": "2011/07/25",
-                "office": "Edinburgh",
-                "extn": "8422"
-            }
-        ]; 
-            var table = $('#example1').DataTable({
-                data: data,
-                //使用对象数组，一定要配置columns，告诉 DataTables 每列对应的属性
-                //data 这里是固定不变的，name，position，salary，office 为你数据里对应的属性
-                columns: [
-                    { data: 'name' },
-                    { data: 'position' },
-                    { data: 'salary' },
-                    { data: 'office' }
-                ],
-                'paging': true,
-                'lengthChange': false,
-                'searching': false,
-                'ordering': false,
-                'info': true,
-                'autoWidth': false,
-                //设置中文
-                'language': {
-                    "sProcessing": "处理中...",
-                    "sLengthMenu": "显示 _MENU_ 项结果",
-                    "sZeroRecords": "没有匹配结果",
-                    "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-                    "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-                    "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-                    "sInfoPostFix": "",
-                    "sSearch": "搜索:",
-                    "sUrl": "",
-                    "sEmptyTable": "表中数据为空",
-                    "sLoadingRecords": "载入中...",
-                    "sInfoThousands": ",",
-                    "oPaginate": {
-                        "sFirst": "首页",
-                        "sPrevious": "上页",
-                        "sNext": "下页",
-                        "sLast": "末页"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": 以升序排列此列",
-                        "sSortDescending": ": 以降序排列此列"
-                    }
-                }
-            });
 
-            //给行绑定选中事件
-            $('#example1 tbody').on('click', 'tr', function () {
-                if ($(this).hasClass('selected')) {
-                    $(this).removeClass('selected');
+        var table = $('#userListTable').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": function (data, callback, settings) {
+
+                //data的参数参考： https://segmentfault.com/a/1190000004478726
+                var param = {};
+                param.draw = data.draw;
+                param.pageNum = (data.start / data.length) + 1;
+                param.pageSize = data.length;
+                $.ajax({
+                    type: "GET",
+                    data: param,
+                    url: "/Account/UserList?handler=UserPage",
+                    dataType: "json",
+                    success: function (data) {
+                        //成功后回调自动渲染
+                        callback(data);
+                    }
+                });
+            },
+            'columns': [
+                { 'data': 'id' },
+                { 'data': 'name' },
+                { 'data': 'userName' },
+                { 'data': 'sexString' },
+                { 'data': 'phone' },
+                { 'data': 'createTime' },
+                {
+                    'data': 'enableString',
+                    'render': function (data, type, row) {
+                        if (row.enable == 1)
+                            return '<span style="color:#19be6b" >' + row.enableString + '</span>';
+                        else
+                            return '<span style="color:#ed3f14" >' + row.enableString + '</span>';
+                    }
+                },
+                {
+                    'data': null,
+                    'render': function (data, type, row) {
+                        return '<i class="fa fa-pencil-square text-navy fa-lg " id="' + row.id + '"></i>  ' +
+                            '<i class="fa fa-trash text-danger fa-lg " id="' + row.id + '"></i>';
+                    }
+                },
+            ],
+            'paging': true,         //启用分页
+            'lengthChange': true,   //设置每页数量
+            'searching': false,
+            'ordering': false,
+            'info': true,
+            'autoWidth': false,
+            //设置中文
+            'language': {
+                "sProcessing": "玩命加载中...",
+                "sLengthMenu": "显示 _MENU_ 项结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "表中数据为空",
+                "sLoadingRecords": "玩命加载中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
                 }
-                else {
-                    table.$('tr.selected').removeClass('selected');
-                    $(this).addClass('selected');
+            }
+        });
+
+
+        //给行绑定选中事件
+        $('#userListTable tbody').on('click', 'tr', function () {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+        function GetUserList() {
+            $.ajax({
+                type: "GET",
+                url: "/Account/UserList?handler=UserPage",
+                contentType: "application/json",
+                success: function (data) {
+                    return data;
+                },
+                error: function (error) {
+                    alert(error.status + "<--and--> " + error.statusText);
                 }
             });
-       
+        };
     </script>
 }

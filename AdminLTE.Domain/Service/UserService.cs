@@ -7,6 +7,8 @@ using System.Linq;
 using Banana.Utility.Encryption;
 using AdminLTE.Models.VModel;
 using AdminLTE.Models.Enum;
+using Banana.Uow.Models;
+using Banana.Utility.Common;
 
 namespace AdminLTE.Domain.Service
 {
@@ -50,33 +52,20 @@ namespace AdminLTE.Domain.Service
             var list = Repository.QueryList("CreateTime>=@time  ORDER BY CreateTime desc", new { time = "2018-11-01" });
             list.ForEach(u =>
             {
-                VUserListModel model = new VUserListModel()
-                {
-                    Id = u.Id,
-                    UserName = u.Name,
-                    UserHeader = GetUserHeader(u.UserName),
-                    Time = DateTime.Now,
-                    CreateTime = u.CreateTime,
-                    Enable = u.Enable,
-                    Sex = u.Sex,
-                    Name = u.Name
-                };
+                VUserListModel model = ModelConvertUtil<UserInfo, VUserListModel>.ModelCopy(u);
                 res.Add(model);
             });
             return res;
         }
 
-        public List<VUserListModel> GetUserList(int pageNum, int pageSize, string whereString = null, object param = null, string order = null, bool asc = false)
+        public List<VUserListModel> GetUserList(int pageNum, int pageSize,out int pageCount, string whereString = null, object param = null, string order = null, bool asc = false)
         {
             var user = Repository.QueryList(pageNum, pageSize, whereString, param, order, asc);
-            return null;
+            pageCount = user.pageCount;
+            var res = ModelConvertUtil<UserInfo, VUserListModel>.ModelCopy(user.data);
+            return res;
         }
-
-        public static string GetUserHeader(string userName)
-        {
-            return @"/images/userHeader/" + userName + ".jpg";
-        }
-
+ 
         /// <summary>
         /// Demo
         /// </summary>
