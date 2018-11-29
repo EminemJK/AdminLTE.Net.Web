@@ -22,34 +22,36 @@
             <div class="box">
                 <!-- 条件 -->
                 <div class="box-header">
-                    <div class="col-item">
-                        <a class="btn btn-default">
-                            <i class="fa  fa-user-plus"></i> 新增用户
-                        </a>
+                    <div class="row-item">
+                        <div class="col-item">
+                            <input type="text" class="form-control form-control-cover" placeholder="用户名" style="width:100px" id="input-name">
+                        </div>
+
+                        <div class="col-item">
+                            <input type="text" class="form-control form-control-cover" style="width:150px" placeholder="联系方式" id="input-phone">
+                        </div>
+
+                        <div class="col-item">
+                            <select class="form-control form-control-cover" style="width:120px" id="select-sex">
+                                <option value="-1">所有性别</option>
+                                <option value="1">男</option>
+                                <option value="0">女</option>
+                            </select>
+                        </div>
+                        <div class="col-item">
+                            <a class="btn btn-default fr" id="btn-search">
+                                <i class="fa fa-search"></i> 搜索
+                            </a>
+                        </div>
                     </div>
 
-                    <div class="col-item">
-                        <label>用户名：</label>
-                        <input type="text" class="form-control form-control-cover" style="width:100px" id="input-name">
-                    </div>
-
-                    <div class="col-item">
-                        <label class="search-style-marginLg">联系方式：</label>
-                        <input type="text" class="form-control form-control-cover" style="width:150px" id="input-phone">
-                    </div>
-
-                    <div class="col-item">
-                        <label>性别：</label>
-                        <select class="form-control form-control-cover" style="width:100px" id="select-sex">
-                            <option value="-1">全部</option>
-                            <option value="1">男</option>
-                            <option value="0">女</option>
-                        </select>
-                    </div>
-                    <div class="col-item">
-                        <a class="btn btn-default fr" id="btn-search">
-                            <i class="fa fa-search"></i> 搜索
-                        </a>
+                    <!-- 新增用户 -->
+                    <div class="row-item">
+                        <div class="col-item">
+                            <button type="button" class="btn btn-info" id="btn_add" @*data-toggle="modal" data-target="#modal-default" *@>
+                                <i class="fa fa-user-plus"> 新增用户</i>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <!-- /.box-header -->
@@ -58,8 +60,8 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>用户名</th>
-                                <th>登录名</th>
+                                <th>姓名</th>
+                                <th>账户</th>
                                 <th>性别</th>
                                 <th>联系方式</th>
                                 <th>注册时间</th>
@@ -78,133 +80,64 @@
     </div>
 
     <!-- 修改信息的弹窗 start -->
-    <div class="modal fade" id="modal-default">
+    <div class="modal fade" id="userinfo-dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title">默认弹框</h4>
+                    <h4 class="modal-title">用户信息</h4>
                 </div>
                 <div class="modal-body">
-                    <p>一个很好的内容&hellip;</p>
+                    <div class="col-item fl" style="width:50%">
+                        <div class="row-item">
+                            <label>ID：</label>
+                            <label type="text" style="width:100px">0</label>
+                        </div>
+                        <div class="row-item">
+                            <label>账户：</label>
+                            <input type="text" class="form-control form-control-cover" placeholder="用户名" style="width:200px">
+                        </div>
+                        <div class="row-item">
+                            <label>姓名：</label>
+                            <input type="text" class="form-control form-control-cover" placeholder="姓名" style="width:200px">
+                        </div>
+                        <div class="row-item">
+                            <label>性别：</label>
+                            <input type="text" class="form-control form-control-cover" placeholder="用户名" style="width:200px">
+                        </div>
+                        <div class="row-item">
+                            <label>联系方式：</label>
+                            <input type="text" class="form-control form-control-cover" placeholder="联系方式" style="width:200px">
+                        </div>
+                        <div class="row-item">
+                            <label>是否启用：</label>
+                            <input type="text" class="form-control form-control-cover" placeholder="用户名" style="width:200px">
+                        </div>
+                    </div>
+                    <div class="col-item fr" style="width:40%">
+                        <div class="row-item">
+                            <input type="text" class="form-control form-control-cover" placeholder="用户名" style="width:200px">
+                            <button type="button" class="btn btn-primary">上传头像</button>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary">保存修改</button>
+                    <button type="button" class="btn btn-primary">保存</button>
                 </div>
             </div>
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
-    </div> 
+    </div>
     <!-- 修改信息的弹窗 end -->
 </section>
 
 @section Scripts{
     <script src="~/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="~/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-    <script>
-
-        var table = $('#userListTable').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "ajax": function (data, callback, settings) {
-
-                //data的参数请参考： https://segmentfault.com/a/1190000004478726
-                var param = {};
-                param.draw = data.draw;
-                param.pageNum = (data.start / data.length) + 1;
-                param.pageSize = data.length;
-
-                param.sex = $('#select-sex option:selected').val();
-                param.phone = $('#input-phone').val();
-                param.name = $('#input-name').val();
-                $.ajax({
-                    type: "GET",
-                    data: param,
-                    url: "/Account/UserList?handler=UserPage",
-                    dataType: "json",
-                    success: function (data) {
-                        //成功后回调自动渲染
-                        callback(data);
-                    }
-                });
-            },
-            'columns': [
-                { 'data': 'id' },
-                { 'data': 'name' },
-                { 'data': 'userName' },
-                { 'data': 'sexString' },
-                { 'data': 'phone' },
-                { 'data': 'createTime' },
-                {
-                    'data': 'enableString',
-                    'render': function (data, type, row) {
-                        if (row.enable == 1)
-                            return '<span style="color:#19be6b" >' + row.enableString + '</span>';
-                        else
-                            return '<span style="color:#ed3f14" >' + row.enableString + '</span>';
-                    }
-                },
-                {
-                    'data': null,
-                    'render': function (data, type, row) {
-                        return '<i class="fa fa-pencil-square text-navy fa-lg " title="编辑" style="cursor:pointer" data-toggle="modal" data-target="#modal-default" id="' + row.id + '"></i>     ' +
-                            '<i class="fa fa-trash text-danger fa-lg "  title="删除" style="cursor:pointer" id="' + row.id + '"></i>';
-                    }
-                },
-            ],
-            //datatable设置参数 http://www.datatables.club/reference/option/
-            'paging': true,         //启用分页
-            'lengthChange': true,   //设置每页数量
-            'searching': false,
-            'ordering': false,
-            'info': true,
-            'autoWidth': false,
-            //设置中文
-            'language': {
-                "sProcessing": "玩命加载中...",
-                "sLengthMenu": "每页显示显示 _MENU_",
-                "sZeroRecords": "没有匹配结果",
-                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-                "sInfoPostFix": "",
-                "sSearch": "搜索:",
-                "sUrl": "",
-                "sEmptyTable": "表中数据为空",
-                "sLoadingRecords": "玩命加载中...",
-                "sInfoThousands": ",",
-                "oPaginate": {
-                    "sFirst": "首页",
-                    "sPrevious": "上页",
-                    "sNext": "下页",
-                    "sLast": "末页"
-                },
-                "oAria": {
-                    "sSortAscending": ": 以升序排列此列",
-                    "sSortDescending": ": 以降序排列此列"
-                }
-            }
-        });
-
-
-        //给行绑定选中事件
-        $('#userListTable tbody').on('click', 'tr', function () {
-            if ($(this).hasClass('selected')) {
-                $(this).removeClass('selected');
-            }
-            else {
-                table.$('tr.selected').removeClass('selected');
-                $(this).addClass('selected');
-            }
-        });
-
-        //搜索
-        $("#btn-search").on('click', function () {
-            table.draw();
-        });
-    </script>
+    <script src="~/js/account/userlist.js"></script>
 }

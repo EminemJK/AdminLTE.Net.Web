@@ -12,13 +12,7 @@
     margin-right:0;
 }
 
-table.change-tr-color tr:hover {
-    background-color: #9edff1;
-}
 
-tr.selected {
-    background-color: #9edff1;
-}
 
 .fl {
     float: left;
