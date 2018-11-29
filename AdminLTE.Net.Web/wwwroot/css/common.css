@@ -2,6 +2,10 @@
     
 }
 
+.clearfix {
+    clear: both;
+}
+
 .logo-img {
     width:35px;
     height:auto;
@@ -11,8 +15,6 @@
 .logo-mini .logo-img {
     margin-right:0;
 }
-
-
 
 .fl {
     float: left;
