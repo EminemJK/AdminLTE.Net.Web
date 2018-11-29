@@ -22,18 +22,16 @@ namespace AdminLTE.Net.Web.Pages.Account
             
         }
 
-        public IActionResult OnGetUserPage(int pageNum = 1, int pageSize = 8,int draw = 1)
+        public IActionResult OnGetUserPage(VUserListConditionInput input)
         {
             int pageCount;
-            var data = userService.GetUserList(pageNum, pageSize, out pageCount);
-            return new JsonResult(new VModelTableOutput<VUserListModel>(data, draw, pageCount));
+            var data = userService.GetUserList(input, out pageCount);
+            return new JsonResult(new VModelTableOutput<VUserListModel>(data, input.draw, pageCount));
         }
 
 
         protected UserService userService { get; set; }
 
-        public List<VUserListModel> UserList { get; set; }
-
-
+        public List<VUserListModel> UserList { get; set; } 
     }
 }

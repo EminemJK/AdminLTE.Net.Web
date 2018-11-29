@@ -20,28 +20,37 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box">
+                <!-- 条件 -->
                 <div class="box-header">
-                    <div class="form-group">
+                    <div class="col-item">
+                        <a class="btn btn-default">
+                            <i class="fa  fa-user-plus"></i> 新增用户
+                        </a>
+                    </div>
+
+                    <div class="col-item">
                         <label>用户名：</label>
-                        <input type="text" class="form-control" style="width:100px" id="input-username">
+                        <input type="text" class="form-control form-control-cover" style="width:100px" id="input-name">
                     </div>
 
-                    <div class="form-group">
+                    <div class="col-item">
                         <label class="search-style-marginLg">联系方式：</label>
-                        <input type="text" class="form-control" style="width:100px" id="input-phone">
+                        <input type="text" class="form-control form-control-cover" style="width:150px" id="input-phone">
                     </div>
 
-                    <div class="form-group">
+                    <div class="col-item">
                         <label>性别：</label>
-                        <select class="form-control" style="width:100px" >
-                            <option>全部</option>
-                            <option>男</option>
-                            <option>女</option>
+                        <select class="form-control form-control-cover" style="width:100px" id="select-sex">
+                            <option value="-1">全部</option>
+                            <option value="1">男</option>
+                            <option value="0">女</option>
                         </select>
                     </div>
-                    <a class="btn btn-default fr">
-                        <i class="fa fa-search"></i> 搜索
-                    </a>
+                    <div class="col-item">
+                        <a class="btn btn-default fr" id="btn-search">
+                            <i class="fa fa-search"></i> 搜索
+                        </a>
+                    </div>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -67,6 +76,30 @@
         </div>
         <!-- /.col -->
     </div>
+
+    <!-- 修改信息的弹窗 start -->
+    <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">默认弹框</h4>
+                </div>
+                <div class="modal-body">
+                    <p>一个很好的内容&hellip;</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary">保存修改</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div> 
+    <!-- 修改信息的弹窗 end -->
 </section>
 
 @section Scripts{
@@ -79,11 +112,15 @@
             "serverSide": true,
             "ajax": function (data, callback, settings) {
 
-                //data的参数参考： https://segmentfault.com/a/1190000004478726
+                //data的参数请参考： https://segmentfault.com/a/1190000004478726
                 var param = {};
                 param.draw = data.draw;
                 param.pageNum = (data.start / data.length) + 1;
                 param.pageSize = data.length;
+
+                param.sex = $('#select-sex option:selected').val();
+                param.phone = $('#input-phone').val();
+                param.name = $('#input-name').val();
                 $.ajax({
                     type: "GET",
                     data: param,
@@ -114,11 +151,12 @@
                 {
                     'data': null,
                     'render': function (data, type, row) {
-                        return '<i class="fa fa-pencil-square text-navy fa-lg " id="' + row.id + '"></i>  ' +
-                            '<i class="fa fa-trash text-danger fa-lg " id="' + row.id + '"></i>';
+                        return '<i class="fa fa-pencil-square text-navy fa-lg " title="编辑" style="cursor:pointer" data-toggle="modal" data-target="#modal-default" id="' + row.id + '"></i>     ' +
+                            '<i class="fa fa-trash text-danger fa-lg "  title="删除" style="cursor:pointer" id="' + row.id + '"></i>';
                     }
                 },
             ],
+            //datatable设置参数 http://www.datatables.club/reference/option/
             'paging': true,         //启用分页
             'lengthChange': true,   //设置每页数量
             'searching': false,
@@ -128,7 +166,7 @@
             //设置中文
             'language': {
                 "sProcessing": "玩命加载中...",
-                "sLengthMenu": "显示 _MENU_ 项结果",
+                "sLengthMenu": "每页显示显示 _MENU_",
                 "sZeroRecords": "没有匹配结果",
                 "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
                 "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
@@ -163,18 +201,10 @@
                 $(this).addClass('selected');
             }
         });
-        function GetUserList() {
-            $.ajax({
-                type: "GET",
-                url: "/Account/UserList?handler=UserPage",
-                contentType: "application/json",
-                success: function (data) {
-                    return data;
-                },
-                error: function (error) {
-                    alert(error.status + "<--and--> " + error.statusText);
-                }
-            });
-        };
+
+        //搜索
+        $("#btn-search").on('click', function () {
+            table.draw();
+        });
     </script>
 }

@@ -44,12 +44,12 @@ namespace AdminLTE.Domain.Service
         }
 
         /// <summary>
-        /// 获取最近注册用户
+        /// 获取最近6个注册用户
         /// </summary>
-        public List<VUserListModel> GetIndexUsers()
+        public List<VUserListModel> GetIndexUsers(int count = 8)
         {
             var res = new List<VUserListModel>();
-            var list = Repository.QueryList("CreateTime>=@time  ORDER BY CreateTime desc", new { time = "2018-11-01" });
+            var list = Repository.QueryList("CreateTime>=@time  ORDER BY CreateTime desc", new { time = "2018-11-01" }).Take(count).ToList();
             list.ForEach(u =>
             {
                 VUserListModel model = ModelConvertUtil<UserInfo, VUserListModel>.ModelCopy(u);
@@ -58,9 +58,27 @@ namespace AdminLTE.Domain.Service
             return res;
         }
 
-        public List<VUserListModel> GetUserList(int pageNum, int pageSize,out int pageCount, string whereString = null, object param = null, string order = null, bool asc = false)
+        public List<VUserListModel> GetUserList(VUserListConditionInput input, out int pageCount)
         {
-            var user = Repository.QueryList(pageNum, pageSize, whereString, param, order, asc);
+            List<string> sqlwhere = new List<string>();
+            string whereStr = "";
+            if (!string.IsNullOrEmpty(input.name))
+            {
+                sqlwhere.Add(" name like @name");
+            }
+            if (!string.IsNullOrEmpty(input.phone))
+            {
+                sqlwhere.Add(" phone = @phone");
+            }
+            if (input.sex > -1)
+            {
+                sqlwhere.Add(" sex = @sex");
+            }
+            if (sqlwhere.Count > 0)
+            {
+                whereStr = string.Join("and", sqlwhere);
+            }
+            var user = Repository.QueryList(input.pageNum, input.pageSize, whereString: whereStr, param: new { name = "%"+input.name+"%", phone = input.phone, sex = input.sex });
             pageCount = user.pageCount;
             var res = ModelConvertUtil<UserInfo, VUserListModel>.ModelCopy(user.data);
             return res;

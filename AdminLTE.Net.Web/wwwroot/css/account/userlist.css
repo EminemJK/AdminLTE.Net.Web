@@ -2,3 +2,16 @@
 .search-style-marginLg {
     margin-left: 10px
 }
+
+.col-item {
+    margin-left: 10px;
+    margin-bottom: 5px;
+    width: 100%;
+    display: inline
+}
+
+.form-control-cover {
+    display: inline;
+}
+
+ 
