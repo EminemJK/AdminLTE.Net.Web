@@ -102,13 +102,50 @@ $("#btn-search").on('click', function () {
 function btn_edit(uid) {
     alert(uid);
 };
-
-var dialog = $('#userinfo-dialog');
-dialog.modal('toggle'); 
+ 
 //新增
 $("#btn_add").on('click', function () { 
     var dialog = $('#userinfo-dialog');
     dialog.modal('toggle'); 
     dialog.find('.btn-primary').text('新增保存');
 });
- 
+
+//保存修改
+function save(){
+    var data = {};
+    data.id = $('#user-id').html();
+    data.userName = $("#user-username").val();
+    data.name = $("#user-name").val();
+    data.phone = $("#user-phone").val();
+    data.password = $("#user-password").val();
+    data.sex = $('input[name="input-sex"]:checked').val();
+    data.headerImg = $("#user-img")[0].src;
+
+    if (data.headerImg.indexOf("default-user-image.jpg") != -1) {
+        alert('请上传一张头像');
+        return;
+    }
+    $.ajax({
+        url: '/Account/UserList?handler=Save',
+        type: 'Post',
+        data: data,
+        dataType: "json",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("XSRF-TOKEN",
+                $('input:hidden[name="__RequestVerificationToken"]').val());
+        },
+        success: function (data) {
+            if (data == 'ok') {
+                var dialog = $('#userinfo-dialog');
+                dialog.modal('hide'); 
+                table.draw();
+            }
+            else {
+                alert(data);
+            }
+        },
+        errer: function () {
+            alert('保存失败了');
+        }
+    });
+};

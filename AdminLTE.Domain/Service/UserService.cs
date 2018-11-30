@@ -78,12 +78,36 @@ namespace AdminLTE.Domain.Service
             {
                 whereStr = string.Join("and", sqlwhere);
             }
-            var user = Repository.QueryList(input.pageNum, input.pageSize, whereString: whereStr, param: new { name = "%"+input.name+"%", phone = input.phone, sex = input.sex });
+            var user = Repository.QueryList(input.pageNum, input.pageSize, whereString: whereStr, param: new { name = "%" + input.name + "%", phone = input.phone, sex = input.sex }, order: "createTime");
             pageCount = user.pageCount;
             var res = ModelConvertUtil<UserInfo, VUserListModel>.ModelCopy(user.data);
             return res;
         }
- 
+
+        public int Save(VUserInfoInput inputUserInfo)
+        {
+            var user = new UserInfo()
+            {
+                Id = inputUserInfo.Id,
+                Name = inputUserInfo.Name,
+                UserName = inputUserInfo.UserName,
+                CreateTime = DateTime.Now,
+                Enable =  EUserState.Enabled,
+                HeaderImg = inputUserInfo.HeaderImg.Substring(inputUserInfo.HeaderImg.IndexOf("/upload")),
+                Password = MD5.Encrypt(inputUserInfo.Password),
+                Phone = inputUserInfo.Phone,
+                Sex = inputUserInfo.Sex
+            };
+            if (user.Id == 0)
+            {
+                return (int)Repository.Insert(user);
+            }
+            else
+            {
+                return Repository.Update(user) ? 1: 0;
+            }
+        }
+
         /// <summary>
         /// Demo
         /// </summary>

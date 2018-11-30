@@ -28,3 +28,16 @@ tr.selected {
     display: inline;
 }
 
+.user-img {
+    width: 150px;
+    height: 150px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.user-img img { 
+    max-width:150px;
+    max-height:150px; 
+}
+
+

@@ -32,6 +32,26 @@ namespace AdminLTE.Net.Web.Pages.Account
 
         protected UserService userService { get; set; }
 
-        public List<VUserListModel> UserList { get; set; } 
+        public List<VUserListModel> UserList { get; set; }
+
+        [HttpPost]
+        public IActionResult OnPostSaveAsync(VUserInfoInput inputUserInfo)
+        {
+            if (!ModelState.IsValid)
+            {
+                foreach (var c in ModelState.Root.Children)
+                {
+                    if (c.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid)
+                    {
+                        return new JsonResult(c.Errors[0].ErrorMessage);
+                    }
+                }
+            }
+            if (userService.Save(inputUserInfo) > 0)
+            {
+                return new JsonResult("ok");
+            }
+            return new JsonResult("±£¥Ê ß∞‹¿≤");
+        }
     }
 }
