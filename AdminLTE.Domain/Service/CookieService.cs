@@ -16,7 +16,7 @@ namespace AdminLTE.Domain.Service
         /// </summary>
         public static string GetDesEncrypt<T>(T info)
         {
-            return  DigestHelper.DesEncrypt(JsonConvert.SerializeObject(info));
+            return DES.Encrypt(JsonConvert.SerializeObject(info));
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace AdminLTE.Domain.Service
         {
             try
             {
-                string code = DigestHelper.DesDecrypt(des);
+                string code = DES.Decrypt(des);
                 return JsonConvert.DeserializeObject<T>(code);
             }
             catch

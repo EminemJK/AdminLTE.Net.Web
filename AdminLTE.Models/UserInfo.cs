@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using AdminLTE.Models.Enum;
 using Banana.Uow.Models;
-using Dapper.Contrib.Extensions;
 
 namespace AdminLTE.Models
 {

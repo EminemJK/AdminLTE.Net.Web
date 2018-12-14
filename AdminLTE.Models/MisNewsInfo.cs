@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using Banana.Uow.Models;
-using Dapper.Contrib.Extensions;
 
 namespace AdminLTE.Models
 {
