@@ -23,7 +23,7 @@ namespace AdminLTE.Net.Web.AuthenticationAttr
         /// 执行验证
         /// </summary>
         /// <param name="filterContext"></param>
-        public async virtual void OnAuthorization(AuthorizationFilterContext filterContext)
+        public virtual void OnAuthorization(AuthorizationFilterContext filterContext)
         {
             var authenticate = filterContext.HttpContext.AuthenticateAsync(CookieService.AuthenticationScheme);
             if (authenticate.Result == null || authenticate.Result.Succeeded || this.SkipUserAuthorize(filterContext.ActionDescriptor))
