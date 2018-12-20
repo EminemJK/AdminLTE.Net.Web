@@ -16,29 +16,13 @@ namespace AdminLTE.Net.Web.Pages
 {
     public class BasePageModel : PageModel
     {
-        public override void OnPageHandlerExecuted(PageHandlerExecutedContext context)
+        public VUserCookieModel CurrentUser
         {
-           
-            if (!CheckToken(context.HttpContext))
+            get
             {
-                context.Result = RedirectToPage("/Login");
+                return CookieService.GetDesDecrypt<VUserCookieModel>(this.User.Claims.FirstOrDefault().Value);
             }
-            base.OnPageHandlerExecuted(context);
         }
-
-        protected bool CheckToken(HttpContext context)
-        { 
-            if (context.User != null && context.User.Claims.Count() > 0)
-            {
-                CurrentUser = CookieService.GetDesDecrypt<VUserCookieModel>(context.User.Claims.FirstOrDefault().Value);
-                if (CurrentUser == null)
-                    return false;
-                return true;
-            }
-            return false;
-        }
-        
-        public VUserCookieModel CurrentUser { get;  set; }
 
         [HttpPost]
         public virtual async Task<IActionResult> OnPostUploadAsync([FromServices]IHostingEnvironment env)

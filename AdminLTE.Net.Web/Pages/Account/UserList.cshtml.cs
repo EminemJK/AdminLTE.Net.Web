@@ -6,19 +6,20 @@ using AdminLTE.Application.Service;
 using AdminLTE.Application.Service.UserSvr;
 using AdminLTE.Application.Service.UserSvr.Dto;
 using AdminLTE.Models.VModel;
-using Microsoft.AspNetCore.Authorization;
+using AdminLTE.Net.Web.AuthenticationAttr;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AdminLTE.Net.Web.Pages.Account
 {
-    [Authorize(AuthenticationSchemes = CookieService.AuthenticationScheme)]
+    [UserAuthorize]
     public class UserListModel : BasePageModel
     {
         public UserListModel(IUserService service)
         {
             userService = service;
         }
+
         public void OnGet()
         {
             

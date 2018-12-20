@@ -6,6 +6,7 @@ using AdminLTE.Application.Service;
 using AdminLTE.Application.Service.UserSvr;
 using AdminLTE.Application.Service.UserSvr.Dto;
 using AdminLTE.Models.VModel;
+using AdminLTE.Net.Web.AuthenticationAttr;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +15,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AdminLTE.Net.Web.Pages
 {
-    [Authorize(AuthenticationSchemes = CookieService.AuthenticationScheme)]
+    [UserAuthorize]
     public class IndexModel : BasePageModel
     {
         public IndexModel(IUserService service)
