@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AdminLTE.Domain.Service;
+using AdminLTE.Application.Service;
 using AdminLTE.Models;
 using AdminLTE.Models.VModel;
 using Microsoft.AspNetCore.Hosting;
@@ -30,7 +30,7 @@ namespace AdminLTE.Net.Web.Pages
         { 
             if (context.User != null && context.User.Claims.Count() > 0)
             {
-                CurrentUser = CookieService.GetDesDecrypt<VUserModel>(context.User.Claims.FirstOrDefault().Value);
+                CurrentUser = CookieService.GetDesDecrypt<VUserCookieModel>(context.User.Claims.FirstOrDefault().Value);
                 if (CurrentUser == null)
                     return false;
                 return true;
@@ -38,7 +38,7 @@ namespace AdminLTE.Net.Web.Pages
             return false;
         }
         
-        public VUserModel CurrentUser { get;  set; }
+        public VUserCookieModel CurrentUser { get;  set; }
 
         [HttpPost]
         public virtual async Task<IActionResult> OnPostUploadAsync([FromServices]IHostingEnvironment env)

@@ -33,7 +33,7 @@
         {
             'data': 'enableString',
             'render': function (data, type, row) {
-                if (row.enable == 1)
+                if (row.enable === 1)
                     return '<span style="color:#19be6b" >' + row.enableString + '</span>';
                 else
                     return '<span style="color:#ed3f14" >' + row.enableString + '</span>';

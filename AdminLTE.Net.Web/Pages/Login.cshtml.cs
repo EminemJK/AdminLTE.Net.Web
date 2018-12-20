@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using AdminLTE.Domain.Service;
+using AdminLTE.Application.Service.UserSvr;
+using AdminLTE.Application.Service;
 using AdminLTE.Models.VModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -15,7 +16,7 @@ namespace AdminLTE.Net.Web.Pages
 {
     public class LoginModel : PageModel
     {
-        public LoginModel(UserService service)
+        public LoginModel(IUserService service)
         {
             userService = service;
         }
@@ -23,7 +24,7 @@ namespace AdminLTE.Net.Web.Pages
         { 
         }
 
-        protected UserService userService { get; set; }
+        protected IUserService userService { get; set; }
 
         [BindProperty]
         public VLoginInput Login { get; set; }
@@ -43,7 +44,7 @@ namespace AdminLTE.Net.Web.Pages
                 var user = userService.Login(Login.UserName, Login.Password);
                 if (user != null)
                 {
-                    VUserModel model = new VUserModel()
+                    VUserCookieModel model = new VUserCookieModel()
                     {
                         Id = user.Id,
                         UserName = user.Name,

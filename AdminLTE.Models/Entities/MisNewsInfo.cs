@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using Banana.Uow.Models;
 
-namespace AdminLTE.Models
+namespace AdminLTE.Models.Entity
 {
     [Table("T_MISNews")]
-    public class MisNewsInfo : BaseModel
+    public class MisNewsInfo : IEntity
     {
         [Key]
         public int Id { get; set; }

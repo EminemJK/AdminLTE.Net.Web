@@ -9,3 +9,5 @@
 /AdminLTE.Net.Web/.vs
 /AdminLTE.Net.Web/bin
 /AdminLTE.Net.Web/*.user
+/AdminLTE.Application/*
+/AdminLTE.Net.Web/logfile

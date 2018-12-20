@@ -4,10 +4,10 @@ using System.Text;
 using AdminLTE.Models.Enum;
 using Banana.Uow.Models;
 
-namespace AdminLTE.Models
+namespace AdminLTE.Models.Entity
 {
     [Table("T_User")]
-    public class UserInfo : BaseModel
+    public class UserInfo : IEntity
     {
         [Key]
         public int Id { get; set; }

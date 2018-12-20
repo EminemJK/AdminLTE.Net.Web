@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminLTE.Domain", "AdminLTE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminLTE.Common", "AdminLTE.Common\AdminLTE.Common.csproj", "{820AF6D6-55D9-48CD-B343-A3E80ADCDD27}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminLTE.Application", "AdminLTE.Application\AdminLTE.Application.csproj", "{5CF538F4-A50D-47C1-9CA9-3A4654057E22}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{820AF6D6-55D9-48CD-B343-A3E80ADCDD27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{820AF6D6-55D9-48CD-B343-A3E80ADCDD27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{820AF6D6-55D9-48CD-B343-A3E80ADCDD27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CF538F4-A50D-47C1-9CA9-3A4654057E22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CF538F4-A50D-47C1-9CA9-3A4654057E22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CF538F4-A50D-47C1-9CA9-3A4654057E22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CF538F4-A50D-47C1-9CA9-3A4654057E22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

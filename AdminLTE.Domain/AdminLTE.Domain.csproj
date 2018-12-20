@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AdminLTE.Common\AdminLTE.Common.csproj" />
     <ProjectReference Include="..\AdminLTE.Models\AdminLTE.Models.csproj" />
   </ItemGroup>
 

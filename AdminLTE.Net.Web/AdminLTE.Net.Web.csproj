@@ -6,15 +6,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="logfile\**" />
     <Compile Remove="wwwroot\adminlte\plugins\font-awesome\**" />
     <Compile Remove="wwwroot\adminlte\plugins\Ionicons\**" />
     <Compile Remove="wwwroot\upload\**" />
+    <Content Remove="logfile\**" />
     <Content Remove="wwwroot\adminlte\plugins\font-awesome\**" />
     <Content Remove="wwwroot\adminlte\plugins\Ionicons\**" />
     <Content Remove="wwwroot\upload\**" />
+    <EmbeddedResource Remove="logfile\**" />
     <EmbeddedResource Remove="wwwroot\adminlte\plugins\font-awesome\**" />
     <EmbeddedResource Remove="wwwroot\adminlte\plugins\Ionicons\**" />
     <EmbeddedResource Remove="wwwroot\upload\**" />
+    <None Remove="logfile\**" />
     <None Remove="wwwroot\adminlte\plugins\font-awesome\**" />
     <None Remove="wwwroot\adminlte\plugins\Ionicons\**" />
     <None Remove="wwwroot\upload\**" />
@@ -6821,7 +6825,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Banana.Uow" Version="1.3.3" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
@@ -6830,8 +6833,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AdminLTE.Application\AdminLTE.Application.csproj" />
     <ProjectReference Include="..\AdminLTE.Common\AdminLTE.Common.csproj" />
-    <ProjectReference Include="..\AdminLTE.Domain\AdminLTE.Domain.csproj" />
     <ProjectReference Include="..\AdminLTE.Models\AdminLTE.Models.csproj" />
   </ItemGroup>
 
