@@ -6834,8 +6834,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AdminLTE.Application\AdminLTE.Application.csproj" />
-    <ProjectReference Include="..\AdminLTE.Common\AdminLTE.Common.csproj" />
-    <ProjectReference Include="..\AdminLTE.Models\AdminLTE.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>
