@@ -86,10 +86,9 @@ namespace AdminLTE.Application.Service.UserSvr
             return ModelConvertUtil<UserInfo, UserInfoDto>.ModelCopy(user.data);
         }
 
-        public int Save(VUserInfoInput inputUserInfo)
+        public int Save(UserInfoDto inputUserInfo)
         {
-            var dto = ModelConvertUtil<VUserInfoInput, UserInfoDto>.ModelCopy(inputUserInfo);
-            var user = ModelConvertUtil<UserInfoDto, UserInfo>.ModelCopy(dto);
+            var user = ModelConvertUtil<UserInfoDto, UserInfo>.ModelCopy(inputUserInfo);
             user.CreateTime = DateTime.Now;
             user.Enable = EUserState.Enabled;
             user.HeaderImg = user.HeaderImg.Substring(inputUserInfo.HeaderImg.IndexOf("/upload"));

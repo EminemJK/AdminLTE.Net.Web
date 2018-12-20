@@ -1,0 +1,87 @@
+﻿<div class="modal fade" id="userinfo-dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">用户信息</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-item fl" style="width:50%">
+                    <div class="row-item">
+                        <label>ID：</label>
+                        <label type="text" style="width:100px" id="user-id">0</label>
+                    </div>
+                    <div class="row-item">
+                        <label>账户：</label>
+                        <input type="text" id="user-username" class="form-control form-control-cover fa danger" placeholder="用户名" style="width:200px">
+                    </div>
+                    <div class="row-item">
+                        <label>密码：</label>
+                        <input type="password" id="user-password" class="form-control form-control-cover fa danger" placeholder="密码" style="width:200px" value="12345678">
+                    </div>
+                    <div class="row-item">
+                        <label>姓名：</label>
+                        <input type="text" id="user-name" class="form-control form-control-cover" placeholder="姓名" style="width:200px">
+                    </div>
+                    <div class="row-item">
+                        <label>性别：</label>
+                        <label>
+                            <input type="radio" name="input-sex" class="minimal" checked value="1">男
+                        </label>
+                        <label>
+                            <input type="radio" name="input-sex" class="minimal-red" value="0">女
+                        </label>
+                    </div>
+                    <div class="row-item">
+                        <label>联系方式：</label>
+                        <input type="text" id="user-phone" class="form-control form-control-cover" placeholder="联系方式" style="width:170px">
+                    </div>
+                </div>
+                <div class="col-item fr" style="width:45%">
+                    <div class="row-item">
+                        <label>用户头像：</label>
+                        <div class="user-img">
+                            <img id="user-img" src="~/images/userHeader/default-user-image.jpg" onerror='this.src="~/images/userHeader/default-user-image.jpg"' />
+                        </div>
+                        <input type="file" id="input-userimg" onchange="uploadfile()">
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">关闭</button>
+                <button type="submit" class="btn btn-primary" onclick="save()">保存</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script>
+    //upload img
+    function uploadfile() {
+        var file = $("#input-userimg")[0].files[0];
+        var data = new FormData();
+        data.append('file', file);
+        $.ajax({
+            url: "/Account/UserList?handler=Upload",
+            type: 'POST',
+            data: data,
+            contentType: false,
+            processData: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("XSRF-TOKEN",
+                    $('input:hidden[name="__RequestVerificationToken"]').val());
+            },
+            success: function (returndata) {
+                $("#user-img").attr('src', returndata.path);
+            },
+            error: function (a, b, c) {
+                alert('上传失败')
+            }
+        });
+    };
+</script>

@@ -21,6 +21,6 @@ namespace AdminLTE.Application.Service.UserSvr
 
         List<UserInfoDto> GetUserList(VUserListConditionInput input, out int pageCount);
 
-        int Save(VUserInfoInput inputUserInfo);
+        int Save(UserInfoDto inputUserInfo);
     }
 }

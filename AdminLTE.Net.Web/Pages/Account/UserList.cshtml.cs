@@ -35,7 +35,7 @@ namespace AdminLTE.Net.Web.Pages.Account
         protected IUserService userService { get; set; }
 
         [HttpPost]
-        public IActionResult OnPostSaveAsync(VUserInfoInput inputUserInfo)
+        public IActionResult OnPostSaveAsync(UserInfoDto inputUserInfo)
         {
             if (!ModelState.IsValid)
             {
