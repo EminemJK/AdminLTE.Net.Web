@@ -15,11 +15,9 @@ namespace AdminLTE.Net.Web.Pages.Account
     [UserAuthorize]
     public class UserListModel : BasePageModel
     {
-        protected IUserService userService { get; set; }
 
-        public UserListModel(IUserService service)
+        public UserListModel(IUserService service) : base(service)
         {
-            userService = service;
         }
 
         public void OnGet()

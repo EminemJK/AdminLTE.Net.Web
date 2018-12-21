@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AdminLTE.Application.Service;
+using AdminLTE.Application.Service.UserSvr;
 using AdminLTE.Models;
 using AdminLTE.Models.VModel;
 using Microsoft.AspNetCore.Hosting;
@@ -16,6 +17,12 @@ namespace AdminLTE.Net.Web.Pages
 {
     public class BasePageModel : PageModel
     {
+        protected IUserService userService { get; set; }
+        public BasePageModel(IUserService userService)
+        {
+            this.userService = userService;
+        }
+
         public VUserCookieModel CurrentUser
         {
             get

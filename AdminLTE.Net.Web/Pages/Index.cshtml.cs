@@ -18,13 +18,9 @@ namespace AdminLTE.Net.Web.Pages
     [UserAuthorize]
     public class IndexModel : BasePageModel
     {
-        public IndexModel(IUserService service)
-        {
-            userService = service;
+        public IndexModel(IUserService service):base(service)
+        { 
         }
-
-        protected IUserService userService { get; set; }
-
         public List<UserInfoDto> UserList { get; set; }
 
         public void OnGet()
