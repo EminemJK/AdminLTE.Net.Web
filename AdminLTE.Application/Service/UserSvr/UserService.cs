@@ -57,36 +57,29 @@ namespace AdminLTE.Application.Service.UserSvr
         /// </summary>
         public List<UserInfoDto> GetIndexUsers(int count = 8)
         {
-            var list = _repository.QueryList("CreateTime>=@time  ORDER BY CreateTime desc", new { time = "2018-11-01" }).Take(count).ToList();
+            var list = _repository.GetTopUserList(count);
             return ModelConvertUtil<UserInfo, UserInfoDto>.ModelCopy(list);
         }
 
+        /// <summary>
+        /// 根据查询获取用户列表
+        /// </summary>
+        /// <param name="input">查询条件</param>
+        /// <param name="pageCount">页码总数</param>
+        /// <returns></returns>
         public List<UserInfoDto> GetUserList(VUserListConditionInput input, out int pageCount)
         {
-            List<string> sqlwhere = new List<string>();
-            string whereStr = "";
-            if (!string.IsNullOrEmpty(input.name))
-            {
-                sqlwhere.Add(" name like @name");
-            }
-            if (!string.IsNullOrEmpty(input.phone))
-            {
-                sqlwhere.Add(" phone = @phone");
-            }
-            if (input.sex > -1)
-            {
-                sqlwhere.Add(" sex = @sex");
-            }
-            if (sqlwhere.Count > 0)
-            {
-                whereStr = string.Join("and", sqlwhere);
-            }
-            var user = _repository.QueryList(input.pageNum, input.pageSize, whereString: whereStr, param: new { name = "%" + input.name + "%", phone = input.phone, sex = input.sex }, order: "createTime");
+            var user = _repository.GetUserInfoByQueryCondition(input, "CreateTime", false);
             pageCount = user.pageCount;
             return ModelConvertUtil<UserInfo, UserInfoDto>.ModelCopy(user.data);
         }
 
-        public int Save(UserInfoDto inputUserInfo)
+        /// <summary>
+        /// 保存用户信息
+        /// </summary>
+        /// <param name="inputUserInfo">用户信息</param>
+        /// <returns></returns>
+        public bool Save(UserInfoDto inputUserInfo)
         {
             var user = ModelConvertUtil<UserInfoDto, UserInfo>.ModelCopy(inputUserInfo);
             user.CreateTime = DateTime.Now;
@@ -95,11 +88,11 @@ namespace AdminLTE.Application.Service.UserSvr
             user.Password = MD5.Encrypt(user.Password); 
             if (user.Id == 0)
             {
-                return (int)_repository.Insert(user);
+                return _repository.Insert(user) > 0;
             }
             else
             {
-                return _repository.Update(user) ? 1: 0;
+                return _repository.Update(user);
             }
         }
 

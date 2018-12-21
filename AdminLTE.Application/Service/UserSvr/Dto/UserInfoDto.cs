@@ -17,7 +17,7 @@ namespace AdminLTE.Application.Service.UserSvr.Dto
 
         [Required(ErrorMessage = "头像未上传")]
         [Display(Name = "头像")]
-        public string HeaderImg { get; set; }
+        public string HeaderImg { get; set; } = "";
 
         [Required(ErrorMessage = "姓名未填写")]
         [Display(Name = "姓名")]

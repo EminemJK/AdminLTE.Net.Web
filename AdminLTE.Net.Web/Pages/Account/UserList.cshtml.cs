@@ -15,6 +15,8 @@ namespace AdminLTE.Net.Web.Pages.Account
     [UserAuthorize]
     public class UserListModel : BasePageModel
     {
+        protected IUserService userService { get; set; }
+
         public UserListModel(IUserService service)
         {
             userService = service;
@@ -30,11 +32,8 @@ namespace AdminLTE.Net.Web.Pages.Account
             int pageCount;
             var data = userService.GetUserList(input, out pageCount);
             return new JsonResult(new VModelTableOutput<UserInfoDto>(data, input.draw, pageCount));
-        }
-
-
-        protected IUserService userService { get; set; }
-
+        } 
+       
         [HttpPost]
         public IActionResult OnPostSaveAsync(UserInfoDto inputUserInfo)
         {
@@ -48,7 +47,7 @@ namespace AdminLTE.Net.Web.Pages.Account
                     }
                 }
             }
-            if (userService.Save(inputUserInfo) > 0)
+            if (userService.Save(inputUserInfo))
             {
                 return new JsonResult("ok");
             }
