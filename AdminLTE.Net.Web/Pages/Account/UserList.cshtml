@@ -79,7 +79,7 @@
         </div>
         <!-- /.col -->
     </div>
-    @Html.Partial("_Edit");
+    @await Html.PartialAsync("_Edit"); <!-- Issues #1 -->>
 </section>
 
 @section Scripts{
